@@ -379,6 +379,13 @@ def main() -> None:
     ccps = day_data.get("ccps", {})
     details = day_data.get("details", {})
 
+    # Debug info (optional - can be removed later)
+    with st.expander("Debug Info (click to expand)"):
+        st.write(f"Selected stage: {stage}")
+        st.write(f"Day data keys: {list(day_data.keys())}")
+        st.write(f"Number of CMs: {len(cms)}")
+        st.write(f"System metrics available: {bool(system)}")
+
     # Overview Section
     if stage == "Overview":
         st.subheader(f"Day {day_index} Overview")
@@ -395,11 +402,33 @@ def main() -> None:
         col1, col2 = st.columns(2)
 
         with col1:
-            st.plotly_chart(_plot_client_wealth_distribution(cms), use_container_width=True)
-            st.plotly_chart(_plot_cm_comparison(cms), use_container_width=True)
+            try:
+                fig1 = _plot_client_wealth_distribution(cms)
+                if fig1 and fig1.data:
+                    st.plotly_chart(fig1, use_container_width=True)
+                else:
+                    st.info("No client wealth data available for this day")
+            except Exception as e:
+                st.error(f"Error plotting wealth distribution: {str(e)}")
+
+            try:
+                fig2 = _plot_cm_comparison(cms)
+                if fig2 and fig2.data:
+                    st.plotly_chart(fig2, use_container_width=True)
+                else:
+                    st.info("No CM comparison data available")
+            except Exception as e:
+                st.error(f"Error plotting CM comparison: {str(e)}")
 
         with col2:
-            st.plotly_chart(_plot_margin_call_analysis(cms), use_container_width=True)
+            try:
+                fig3 = _plot_margin_call_analysis(cms)
+                if fig3 and fig3.data:
+                    st.plotly_chart(fig3, use_container_width=True)
+                else:
+                    st.info("No margin call data available")
+            except Exception as e:
+                st.error(f"Error plotting margin calls: {str(e)}")
 
     elif stage == "Market State":
         st.subheader("Market State")
