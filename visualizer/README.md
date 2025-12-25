@@ -10,6 +10,7 @@ An interactive web-based dashboard for visualizing and analyzing clearing simula
 - **Trade Analysis**: View proposed vs accepted trades with acceptance rate tracking
 - **Portfolio Visualization**: Analyze client positions at start and end of day
 - **Multi-stage View**: Navigate through different simulation stages
+- **🆕 Client Debug Calculator**: Manually verify and debug PnL, margin, shortfall, and wealth calculations for individual clients ([Learn more](CLIENT_DEBUG_CALCULATOR.md))
 
 ## Installation
 
@@ -71,6 +72,14 @@ The application will open in your default web browser at `http://localhost:8501`
    - **PnL & Returns**: Profit/loss and return calculations
    - **Portfolios**: Client portfolio positions
    - **Time Series Analysis**: Multi-day trends and patterns
+   - **🆕 Client Debug Calculator**: Manually verify calculations for any client
+     - Select a client from the dropdown
+     - See step-by-step PnL calculation (portfolio × returns)
+     - Review margin calculation (Expected Shortfall with configurable α)
+     - Analyze shortfall and margin calls
+     - Track wealth evolution
+     - Compare calculated vs reported values
+     - See [full documentation](CLIENT_DEBUG_CALCULATOR.md)
 
 ## Data Format
 
